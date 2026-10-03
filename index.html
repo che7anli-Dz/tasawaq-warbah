@@ -4,6 +4,7 @@
 <title>تسوق واربح — اشري، بيع، روّج أو وصّل واربح من حيّك</title>
 <meta name="description" content="تسوق واربح: منصة جزائرية تجمع البائع والمشتري والمروّج والموصّل. بيع منتجاتك، اشري من حيّك، روّج واربح عمولة، أو وصّل الطلبات. تسليم آمن بكود QR وإثبات دفع بالصورة.">
 <meta property="og:title" content="تسوق واربح"><meta property="og:description" content="اشري، بيع، روّج أو وصّل واربح من حيّك — بأمان وبكود QR."><meta property="og:type" content="website"><meta name="theme-color" content="#12a36a">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--g:#12a36a;--bg:#f4f7f6;--c:#fff;--t:#17202a;--m:#718096;--l:#e3e9e7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171a;--c:#1b262b;--t:#eef2f1;--m:#9aa8b0;--l:#2c3a40}}
@@ -31,33 +32,146 @@ a{color:var(--g)}.chk{display:flex;gap:8px;align-items:center;margin:6px 0 12px}
 .tip{background:rgba(255,157,46,.15);border-radius:12px;padding:8px 12px;margin:6px 0 12px;font-size:13px}
 .gal{display:flex;gap:6px;overflow-x:auto;margin:6px 0}.gal img{height:84px;width:84px;object-fit:cover;border-radius:10px;flex:none;cursor:pointer}
 .qr{text-align:center;margin:8px 0}
-#landing{display:none}.ld{max-width:640px;margin:auto;padding:14px}
-.hero{background:linear-gradient(135deg,#12a36a,#0b6e48);color:#fff;border-radius:22px;padding:30px 20px;text-align:center;margin-top:10px}
-.hero h1{font-size:30px;margin-bottom:8px}.hero p{font-size:16px;line-height:1.9;opacity:.95}
-.hero .b{background:#fff;color:#0b6e48;font-weight:bold;font-size:16px;padding:13px 22px;margin:14px 6px 0}.hero .b.o{background:transparent;color:#fff;border:2px solid #fff}
-.ld h2{text-align:center;font-size:20px;margin:26px 0 12px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid2 .card{margin:0;text-align:center}.grid2 .card span{font-size:32px;display:block}
-.stp{display:flex;gap:10px;align-items:flex-start}.stp b{background:var(--g);color:#fff;border-radius:50%;min-width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px}
+#landing{display:none}
+
+/* ===== اللاندينج الجديدة (معزولة بـ #landing باش ما تأثرش على التطبيق) ===== */
+#landing{--gd:#0b6e48;--gl:rgba(18,163,106,.13);--gt:#0b6e48;--shadow:0 10px 30px rgba(11,110,72,.10);--radius:20px}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #landing{--gt:#3ddc97;--shadow:0 10px 30px rgba(0,0,0,.35)}}
+:root[data-theme="dark"] #landing{--gt:#3ddc97;--shadow:0 10px 30px rgba(0,0,0,.35)}
+#landing,#landing *{font-family:'Cairo',Tahoma,Arial,sans-serif}
+#landing{line-height:1.8;overflow-x:hidden}
+#landing .wrap{max-width:1100px;margin:auto;padding:0 20px}
+#landing .lp-nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--c) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--l)}
+#landing .lp-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+#landing .lp-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px;color:var(--gt)}
+#landing .lp-logo .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;font-size:18px;box-shadow:0 6px 14px rgba(18,163,106,.35)}
+#landing .lp-cta{background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;text-decoration:none;padding:9px 22px;border-radius:999px;font-weight:700;font-size:14px;box-shadow:0 6px 16px rgba(18,163,106,.35);transition:.25s;border:0;cursor:pointer}
+#landing .lp-cta:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(18,163,106,.45)}
+#landing .lp-hero{position:relative;margin:26px 0 0;border-radius:32px;overflow:hidden;background:linear-gradient(135deg,#12a36a 0%,#0b6e48 60%,#085539 100%);color:#fff;text-align:center;padding:84px 24px 96px}
+#landing .lp-hero::before,#landing .lp-hero::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+#landing .lp-hero::before{width:420px;height:420px;top:-160px;inset-inline-start:-120px}
+#landing .lp-hero::after{width:320px;height:320px;bottom:-140px;inset-inline-end:-90px}
+#landing .lp-hero>*{position:relative;z-index:2}
+#landing .lp-badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:6px 18px;border-radius:999px;font-size:13.5px;font-weight:600;margin-bottom:22px}
+#landing .lp-hero h1{font-size:clamp(34px,6vw,58px);font-weight:900;line-height:1.3;margin-bottom:14px}
+#landing .lp-hero p{font-size:clamp(16px,2.4vw,20px);opacity:.95;max-width:640px;margin:0 auto 8px}
+#landing .lp-hero .sub2{font-size:15px;opacity:.8;max-width:560px;margin:0 auto}
+#landing .lp-btns{margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+#landing .lp-btn{border:0;cursor:pointer;font-weight:800;font-size:16.5px;padding:15px 38px;border-radius:999px;text-decoration:none;display:inline-block;transition:.25s;margin:0}
+#landing .lp-btn-p{background:#fff;color:#0b6e48;box-shadow:0 12px 28px rgba(0,0,0,.22)}
+#landing .lp-btn-p:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(0,0,0,.28)}
+#landing .lp-btn-o{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.85)}
+#landing .lp-btn-o:hover{background:rgba(255,255,255,.12)}
+#landing .lp-stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+#landing .lp-stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:12px 26px;min-width:130px}
+#landing .lp-stat b{display:block;font-size:24px;font-weight:900}
+#landing .lp-stat span{font-size:13px;opacity:.85}
+#landing .lp-sec{padding:74px 0 10px}
+#landing .lp-head{text-align:center;margin-bottom:44px}
+#landing .lp-head .k{display:inline-block;background:var(--gl);color:var(--gt);padding:5px 16px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:12px}
+#landing .lp-head h2{font-size:clamp(26px,4vw,36px);font-weight:900;color:var(--t);margin:0}
+#landing .lp-head p{color:var(--m);max-width:560px;margin:8px auto 0;font-size:15.5px}
+#landing .lp-roles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+#landing .lp-role{background:var(--c);border-radius:var(--radius);padding:30px 20px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--l);transition:.3s;position:relative;overflow:hidden}
+#landing .lp-role::before{content:'';position:absolute;top:0;right:0;left:0;height:4px;background:linear-gradient(90deg,var(--g),var(--gd));opacity:0;transition:.3s}
+#landing .lp-role:hover{transform:translateY(-8px)}
+#landing .lp-role:hover::before{opacity:1}
+#landing .lp-role .em{width:70px;height:70px;margin:0 auto 16px;border-radius:20px;display:grid;place-items:center;font-size:34px;background:var(--gl)}
+#landing .lp-role b{font-size:19px;font-weight:800;display:block;margin-bottom:8px;color:var(--gt)}
+#landing .lp-role p{font-size:14px;color:var(--m);line-height:1.9}
+#landing .lp-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;counter-reset:st}
+#landing .lp-step{background:var(--c);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--l);display:flex;gap:18px;align-items:flex-start;transition:.3s}
+#landing .lp-step:hover{transform:translateY(-5px)}
+#landing .lp-step .n{counter-increment:st;flex:none;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;box-shadow:0 8px 18px rgba(18,163,106,.35)}
+#landing .lp-step .n::before{content:counter(st)}
+#landing .lp-step h3{font-size:17px;font-weight:800;margin-bottom:4px}
+#landing .lp-step p{font-size:14px;color:var(--m)}
+#landing .lp-trust{background:linear-gradient(180deg,var(--gl),transparent);border-radius:32px;padding:50px 26px;margin-top:20px}
+#landing .lp-tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+#landing .lp-titem{background:var(--c);border-radius:18px;padding:22px;display:flex;gap:16px;align-items:flex-start;border:1px solid var(--l);box-shadow:var(--shadow);transition:.3s}
+#landing .lp-titem:hover{transform:translateY(-4px)}
+#landing .lp-titem .ic{flex:none;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--gl)}
+#landing .lp-titem b{display:block;font-size:16px;font-weight:800;margin-bottom:2px}
+#landing .lp-titem p{font-size:13.5px;color:var(--m)}
+#landing .lp-final{margin:70px 0 0;border-radius:32px;text-align:center;color:#fff;background:linear-gradient(135deg,#0b6e48,#12a36a);padding:70px 24px;position:relative;overflow:hidden}
+#landing .lp-final::before{content:'';position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.07);bottom:-180px;inset-inline-start:50%;transform:translateX(50%)}
+#landing .lp-final h2{font-size:clamp(26px,4.5vw,40px);font-weight:900;margin:0 0 10px;position:relative;color:#fff}
+#landing .lp-final p{opacity:.9;max-width:520px;margin:0 auto 30px;position:relative}
+#landing .lp-final .lp-btn{position:relative}
+#landing .lp-foot{text-align:center;color:var(--m);font-size:13.5px;padding:36px 0 20px}
+#landing .lp-foot b{color:var(--gt)}
+#landing .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+#landing .reveal.in{opacity:1;transform:none}
+@media(max-width:900px){#landing .lp-roles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){#landing .lp-steps,#landing .lp-tgrid{grid-template-columns:1fr}#landing .lp-hero{padding:64px 18px 76px;border-radius:24px}#landing .lp-final{border-radius:24px}}
 </style></head><body>
-<div id="landing"><div class="ld">
-<section class="hero"><h1>🛒 تسوق واربح</h1><p>اشري، بيع، روّج أو وصّل... واربح من حيّك.<br>منصة تجمع البائع والمشتري والمروّج والموصّل في مكان واحد، بأمان وشفافية.</p>
-<button class="b" onclick="goAuth('up')">ابدأ الآن مجاناً</button><button class="b o" onclick="goAuth('in')">دخول</button></section>
-<h2>واش تقدر تدير؟</h2>
-<div class="grid2">
-<div class="card"><span>🏪</span><b>بائع</b><p class="s">انشر منتجاتك بالصور وحدد سعرك الصافي. تاخذ فلوسك كاملة.</p></div>
-<div class="card"><span>🛍️</span><b>مشتري</b><p class="s">اشري من حيّك، وتتفق مع الموصّل على سعر التوصيل حسب المسافة.</p></div>
-<div class="card"><span>📣</span><b>مروّج</b><p class="s">روّج المنتجات واتفق مع البائع على عمولتك، واربح من كل قطعة تباع.</p></div>
-<div class="card"><span>🚚</span><b>موصّل</b><p class="s">وصّل الطلبات القريبة منك واربح أجرتك المتفق عليها.</p></div></div>
-<h2>كيفاش يخدم؟</h2>
-<div class="card"><div class="stp"><b>1</b><span>سجّل حسابك واختر دورك.</span></div></div>
-<div class="card"><div class="stp"><b>2</b><span>البائع ينشر، والمشتري يطلب، والموصّل يقترح سعر التوصيل.</span></div></div>
-<div class="card"><div class="stp"><b>3</b><span>المشتري يدفع عربون التوصيل ويصوّر الإثبات، والبائع يؤكده.</span></div></div>
-<div class="card"><div class="stp"><b>4</b><span>التسليم يتأكد بكود QR: الموصّل يستلم من البائع ويسلّم للمشتري.</span></div></div>
-<h2>أمان وثقة</h2>
-<div class="card">🔐 كود QR عند الاستلام والتسليم يمنع الكذب والتحايل.<br>📸 إثبات الدفع بالصورة إجباري في كل مرحلة.<br>📵 أنت تتحكم في من يشوف رقم هاتفك.<br>🤝 سعر التوصيل يتفق عليه المشتري والموصّل بوضوح.</div>
-<div class="hero" style="margin-top:22px"><p>جاهز تبدأ؟</p><button class="b" onclick="goAuth('up')">أنشئ حسابك</button></div>
-<p class="s" style="text-align:center;margin:18px 0">© تسوق واربح</p>
+<div id="landing">
+<div class="lp-nav"><div class="wrap">
+  <div class="lp-logo"><span class="ic">🛒</span> تسوق واربح</div>
+  <button class="lp-cta" onclick="goAuth('up')">ابدأ الآن</button>
 </div></div>
+<div class="wrap">
+  <div class="lp-hero">
+    <span class="lp-badge">🇩🇿 منصة جزائرية 100% — من حيّك وإلى حيّك</span>
+    <h1>اشري، بيع، روّج أو وصّل...<br>واربح من حيّك 🛒</h1>
+    <p>منصة تجمع البائع والمشتري والمروّج والموصّل في مكان واحد، بأمان وشفافية.</p>
+    <p class="sub2">تسليم مؤكد بكود QR، وإثبات دفع بالصورة في كل مرحلة — بلا كذب، بلا تحايل.</p>
+    <div class="lp-btns">
+      <button class="lp-btn lp-btn-p" onclick="goAuth('up')">ابدأ الآن مجاناً 🚀</button>
+      <button class="lp-btn lp-btn-o" onclick="goAuth('in')">دخول</button>
+    </div>
+    <div class="lp-stats">
+      <div class="lp-stat"><b>4</b><span>أدوار للربح</span></div>
+      <div class="lp-stat"><b>QR</b><span>تسليم آمن</span></div>
+      <div class="lp-stat"><b>📸</b><span>إثبات دفع إجباري</span></div>
+      <div class="lp-stat"><b>0 دج</b><span>رسوم التسجيل</span></div>
+    </div>
+  </div>
+
+  <section class="lp-sec">
+    <div class="lp-head reveal"><span class="k">واش تقدر تدير؟</span><h2>أربع طرق باش تربح 💰</h2><p>اختر دورك — أو جمع بينهم — وابدأ الربح من اليوم الأول.</p></div>
+    <div class="lp-roles">
+      <div class="lp-role reveal"><div class="em">🏪</div><b>بائع</b><p>انشر منتجاتك بالصور وحدد سعرك الصافي. تاخذ فلوسك كاملة، والموقع يزيد ربحه فوق السعر.</p></div>
+      <div class="lp-role reveal"><div class="em">🛍️</div><b>مشتري</b><p>اشري من حيّك بكل ثقة، وتتفق مع الموصّل على سعر التوصيل حسب المسافة.</p></div>
+      <div class="lp-role reveal"><div class="em">📣</div><b>مروّج</b><p>روّج المنتجات واتفق مع البائع على عمولتك، واربح من كل قطعة تباع عبر رابطك الخاص.</p></div>
+      <div class="lp-role reveal"><div class="em">🚚</div><b>موصّل</b><p>وصّل الطلبات القريبة منك، اقترح سعرك، واربح أجرتك المتفق عليها.</p></div>
+    </div>
+  </section>
+
+  <section class="lp-sec">
+    <div class="lp-head reveal"><span class="k">كيفاش يخدم؟</span><h2>أربع خطوات وتكمل العملية ✅</h2><p>دورة كاملة وواضحة من النشر حتى التسليم، والكل موثّق.</p></div>
+    <div class="lp-steps">
+      <div class="lp-step reveal"><div class="n"></div><div><h3>سجّل واختر دورك</h3><p>سجّل حسابك في دقيقة واختر: بائع، مشتري، مروّج أو موصّل.</p></div></div>
+      <div class="lp-step reveal"><div class="n"></div><div><h3>النشر والطلب والتفاوض</h3><p>البائع ينشر، والمشتري يطلب، والموصّل يقترح سعر التوصيل حسب المسافة.</p></div></div>
+      <div class="lp-step reveal"><div class="n"></div><div><h3>عربون موثّق بالصورة</h3><p>المشتري يدفع عربون التوصيل ويصوّر الإثبات، والبائع يؤكده قبل أي تحرك.</p></div></div>
+      <div class="lp-step reveal"><div class="n"></div><div><h3>تسليم بكود QR</h3><p>الموصّل يستلم من البائع ويسلّم للمشتري — كل مرحلة تتأكد بمسح كود QR.</p></div></div>
+    </div>
+  </section>
+
+  <section class="lp-sec">
+    <div class="lp-head reveal"><span class="k">أمان وثقة</span><h2>حمايتك أولاً 🔐</h2><p>صممنا كل مرحلة باش تحمي فلوسك وسلعتك وخصوصيتك.</p></div>
+    <div class="lp-trust reveal"><div class="lp-tgrid">
+      <div class="lp-titem"><div class="ic">🔐</div><div><b>كود QR مزدوج</b><p>كود عند الاستلام وكود عند التسليم — يمنع الكذب والتحايل نهائياً.</p></div></div>
+      <div class="lp-titem"><div class="ic">📸</div><div><b>إثبات دفع بالصورة</b><p>إجباري في كل مرحلة تحويل: العربون، مستحقات البائع، وعمولة المروّج.</p></div></div>
+      <div class="lp-titem"><div class="ic">📵</div><div><b>خصوصية رقمك</b><p>أنت تتحكم في من يشوف رقم هاتفك — إعدادات واضحة لكل دور.</p></div></div>
+      <div class="lp-titem"><div class="ic">🤝</div><div><b>اتفاق شفاف</b><p>سعر التوصيل يتفق عليه المشتري والموصّل بوضوح قبل أي التزام.</p></div></div>
+    </div></div>
+  </section>
+
+  <div class="lp-final reveal">
+    <h2>جاهز تبدأ؟ 🚀</h2>
+    <p>انضم لتسوق واربح اليوم — سجّل مجاناً واختر كيفاش تحب تربح من حيّك.</p>
+    <button class="lp-btn lp-btn-p" onclick="goAuth('up')">أنشئ حسابك مجاناً</button>
+  </div>
+  <div class="lp-foot">© <b>تسوق واربح</b> — منصة جزائرية للتجارة المحلية الآمنة 🇩🇿</div>
+</div>
+</div>
+<script>
+(function(){var els=document.querySelectorAll('#landing .reveal');
+if(!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('in')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{threshold:.12});
+els.forEach(function(el,i){el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)})})();
+</script>
 <div id="app"></div>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
