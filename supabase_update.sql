@@ -171,12 +171,12 @@ begin
 end $function$;
 
 -- ============================================================
--- ---------- 6) تعديل يدوي أخير: my_orders ----------
--- زيد في الـ SELECT هذي الأعمدة الثلاثة:
---     o.buyer_wilaya,
---     (select p.wilaya from public.profiles p where p.id = o.seller_id) as seller_wilaya,
---     (select p.pay    from public.profiles p where p.id = o.driver_id) as driver_pay
--- (بدّل o. باسم الجدول المستعمل في دالتك إذا كان مختلفاً)
+-- ---------- 6) تعديل أخير: my_orders ----------
+-- زيد هذي الأسطر الثلاثة داخل jsonb_build_object:
+--     'buyer_wilaya', o.buyer_wilaya,
+--     'seller_wilaya', s.wilaya,
+--     'driver_pay', case when f.fb and o.status in ('topay','review') then dr.pay end,
+-- (النسخة الكاملة المعدلة تجدها في المحادثة / جاهزة للصق)
 -- ============================================================
 
 -- دوال ما يتبدل فيها والو:
