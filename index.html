@@ -4,8 +4,8 @@
 <title>تسوق واربح — اشري، بيع، روّج ولا وصّل واربح من حيّك</title>
 <meta name="description" content="تسوق واربح: منصة جزائرية تجمع البائع والمشتري والمروّج والموصّل. بيع السلعة تاعك، اشري من حيّك، روّج واربح عمولة، ولا وصّل الطلبات. تسليم آمن بكود QR وإثبات دفع بالتصويرة.">
 <meta property="og:title" content="تسوق واربح"><meta property="og:description" content="اشري، بيع، روّج ولا وصّل واربح من حيّك — بأمان وبكود QR."><meta property="og:type" content="website"><meta name="theme-color" content="#12a36a">
-<link rel="icon" href="logo.svg">
-<meta property="og:image" content="logo.svg">
+<link rel="icon" href="logo.png">
+<meta property="og:image" content="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--g:#12a36a;--bg:#f4f7f6;--c:#fff;--t:#17202a;--m:#718096;--l:#e3e9e7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -152,8 +152,8 @@ body{padding-bottom:104px}
 </style></head><body>
 <div id="landing">
 <div class="lp-nav"><div class="wrap">
-  <div class="lp-logo"><img class="ic" src="logo.svg" alt="تسوق واربح"> تسوق واربح</div>
-  <button class="lp-cta" onclick="goAuth('up')">ابدأ دروك</button>
+  <div class="lp-logo"><img class="ic" src="logo.png" alt="تسوق واربح"> تسوق واربح</div>
+  <button class="lp-cta" onclick="goAuth('up')">تسوّق الآن</button>
 </div></div>
 <div class="wrap">
   <div class="lp-hero">
@@ -162,7 +162,7 @@ body{padding-bottom:104px}
     <p>منصة تجمع البائع والمشتري والمروّج والموصّل في بلاصة وحدة، بأمان وشفافية.</p>
     <p class="sub2">تسليم مؤكد بكود QR، وإثبات دفع بالصورة في كل مرحلة — بلا كذب، بلا تحايل.</p>
     <div class="lp-btns">
-      <button class="lp-btn lp-btn-p" onclick="goAuth('up')">ابدأ دروك بلاش 🚀</button>
+      <button class="lp-btn lp-btn-p" onclick="goAuth('up')">تسوّق الآن بلاش 🚀</button>
       <button class="lp-btn lp-btn-o" onclick="goAuth('in')">دخول</button>
     </div>
     <div class="lp-stats">
@@ -293,7 +293,7 @@ if(p.data)S.p=p.data;S.mk=mk.data||[];S.mine=mine.data||[];S.os=os.data||[];S.ds
 function goAuth(md){mode=md;authUI();document.getElementById('authbox').scrollIntoView({behavior:'smooth'})}
 function authUI(){
 document.getElementById('landing').style.display='block';
-$('#app').innerHTML=`<main><div class="card" style="margin-top:30px"><h2 id="authbox" style="margin-top:0"><img src="logo.svg" alt="تسوق واربح" style="width:44px;height:44px;border-radius:12px;vertical-align:-12px;margin-left:10px"> تسوق واربح</h2>
+$('#app').innerHTML=`<main><div class="card" style="margin-top:30px"><h2 id="authbox" style="margin-top:0"><img src="logo.png" alt="تسوق واربح" style="width:44px;height:44px;border-radius:12px;vertical-align:-12px;margin-left:10px"> تسوق واربح</h2>
 <input id="em" type="email" placeholder="الإيميل" autocomplete="email"><input id="pw" type="password" placeholder="كلمة السر (8 حروف على الأقل)" autocomplete="${mode=='in'?'current-password':'new-password'}">
 ${mode=='up'?`<div class="roles">${Object.entries(ROLES).map(([k,v],i)=>`<label class="role"><input type="radio" name="r" value="${k}" ${i?'':'checked'}><span>${v[0]}</span>${v[1]}</label>`).join('')}</div><input id="n" placeholder="الاسم"><input id="ph" type="tel" placeholder="رقم الهاتف 05xxxxxxxx"><input id="ad" placeholder="البلدية / العنوان">`:''}
 <button class="b" id="go" style="width:100%;margin:0" onclick="auth()">${mode=='in'?'دخول':'افتح حساب'}</button>${mode=='in'?'<p class="s" style="margin-top:12px;text-align:center"><a href="#" onclick="forgot();return false">نسيت كلمة السر؟</a></p>':''}
