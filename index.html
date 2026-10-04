@@ -179,7 +179,7 @@ body{padding-bottom:104px}
       <div class="lp-role reveal"><div class="em">🏪</div><b>بائع</b><p>انشر السلعة تاعك بالتصاور وحدد السومة الصافية. تدي دراهمك كاملين، والموقع يزيد الربح تاعو فوق السومة.</p></div>
       <div class="lp-role reveal"><div class="em">🛍️</div><b>مشتري</b><p>اشري من حيّك ونتا مهني، وتفاهم مع الموصّل على سومة التوصيل حسب المسافة.</p></div>
       <div class="lp-role reveal"><div class="em">📣</div><b>مروّج</b><p>روّج للسلعة وتفاهم مع البائع على العمولة تاعك، واربح من كل قطعة تتباع بالرابط تاعك.</p></div>
-      <div class="lp-role reveal"><div class="em">🚚</div><b>موصّل</b><p>وصّل الطلبات اللي قريبة ليك، اقترح السومة تاعك، واربح الأجرة المتفق عليها.</p></div>
+      <div class="lp-role reveal"><div class="em">🚚</div><b>موصّل</b><p>وصّل الطلبات بسومة ثابتة حسب المسافة، وحدد سومتك لكل ولاية للتوصيل البعيد.</p></div>
     </div>
   </section>
 
@@ -187,8 +187,8 @@ body{padding-bottom:104px}
     <div class="lp-head reveal"><span class="k">كيفاش يخدم؟</span><h2>ربع خطوات وتكمل ✅</h2><p>من النشر حتى التسليم، كلش واضح وموثق.</p></div>
     <div class="lp-steps">
       <div class="lp-step reveal"><div class="n"></div><div><h3>سجّل واختر دورك</h3><p>افتح حسابك في دقيقة واختار: بائع، مشتري، مروّج ولا موصّل.</p></div></div>
-      <div class="lp-step reveal"><div class="n"></div><div><h3>النشر والطلب والتفاوض</h3><p>البائع ينشر، والمشتري يطلب، والموصّل يقترح سومة التوصيل حسب المسافة.</p></div></div>
-      <div class="lp-step reveal"><div class="n"></div><div><h3>عربون موثّق بالصورة</h3><p>المشتري يخلص عربون التوصيل ويصوّر الإثبات، والبائع يأكدو قبل ما يتحرك حتى واحد.</p></div></div>
+      <div class="lp-step reveal"><div class="n"></div><div><h3>النشر والطلب بسومة ثابتة</h3><p>البائع ينشر والمشتري يطلب — سومة التوصيل ثابتة: حسب المسافة داخل الولاية، وحسب جدول الموصّل بين الولايات.</p></div></div>
+      <div class="lp-step reveal"><div class="n"></div><div><h3>عربون موثّق بالصورة</h3><p>المشتري يحوّل عربون التوصيل للموصّل ويصوّر الإثبات، والموصّل يأكدو قبل ما يتحرك.</p></div></div>
       <div class="lp-step reveal"><div class="n"></div><div><h3>تسليم بكود QR</h3><p>الموصّل يستلم من البائع ويسلّم للمشتري — كل مرحلة تتأكد بمسح كود QR.</p></div></div>
     </div>
   </section>
@@ -226,14 +226,20 @@ els.forEach(function(el,i){el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)
 const SB_URL='https://chosrqzpuczmirrxmnkf.supabase.co';
 const SB_KEY='sb_publishable__e-8by0NKHyY-mnRowNtqg_zRr8Fq_q';
 const PLAT_PAY='CCP: ضع رقمك هنا';   // حسابك لاستلام عمولة الموقع
-const KM=30, MINF=150;              // تسعيرة مرجعية للتوصيل
+/* ===== إعدادات التوصيل: عدّل من هنا ===== */
+const WILAYAS={1:'أدرار',2:'الشلف',3:'الأغواط',4:'أم البواقي',5:'باتنة',6:'بجاية',7:'بسكرة',8:'بشار',9:'البليدة',10:'البويرة',11:'تمنراست',12:'تبسة',13:'تلمسان',14:'تيارت',15:'تيزي وزو',16:'الجزائر',17:'الجلفة',18:'جيجل',19:'سطيف',20:'سعيدة',21:'سكيكدة',22:'سيدي بلعباس',23:'عنابة',24:'قالمة',25:'قسنطينة',26:'المدية',27:'مستغانم',28:'المسيلة',29:'معسكر',30:'ورقلة',31:'وهران',32:'البيض',33:'إليزي',34:'برج بوعريريج',35:'بومرداس',36:'الطارف',37:'تندوف',38:'تيسمسيلت',39:'الوادي',40:'خنشلة',41:'سوق أهراس',42:'تيبازة',43:'ميلة',44:'عين الدفلى',45:'النعامة',46:'عين تموشنت',47:'غرداية',48:'غليزان',49:'تيميمون',50:'برج باجي مختار',51:'أولاد جلال',52:'بني عباس',53:'عين صالح',54:'عين قزام',55:'تقرت',56:'جانت',57:'المغير',58:'المنيعة',59:'أفلو',60:'بريكة',61:'القنطرة',62:'بير العاتر',63:'العريشة',64:'قصر الشلالة',65:'عين وسارة',66:'مسعد',67:'قصر البخاري',68:'بوسعادة',69:'الأبيض سيدي الشيخ'};
+const SHIP_TIERS=[[5,250],[15,400],[30,600],[1e9,800]]; // [أقصى مسافة كم، السومة دج] داخل نفس الولاية
+const shipLocal=km=>{for(const t of SHIP_TIERS){if(km<=t[0])return t[1]}return 800};
+const wname=w=>WILAYAS[w]||'؟';
+const wopts=v=>Object.keys(WILAYAS).map(k=>`<option value="${k}"${k==v?' selected':''}>${k} - ${WILAYAS[k]}</option>`).join('');
+const wsel=(id,v)=>`<label>الولاية</label><select id="${id}">${wopts(v)}</select>`;
 /* =================== */
 const $=s=>document.querySelector(s),gv=id=>$('#'+id).value.trim();
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const m=n=>Number(n||0).toLocaleString('fr-DZ')+' دج';
 const PHONE=/^0[567]\d{8}$/;
 const ROLES={buyer:['🛍️','مشتري'],seller:['🏪','بائع'],promoter:['📣','مروّج'],driver:['🚚','موصّل']};
-const ST={new:'يستنى في قبول البائع',open:'يستنى في الموصّل',offer:'تفاوض على سومة التوصيل',topay:'يستنى في عربون التوصيل',review:'البائع يراجع في إثبات الدفع',paid:'العربون تأكد • يستنى في الموصّل يستلم',way:'في الطريق • يستنى في مسح كود المشتري',settle:'يستنى في التحويلات',confirm:'البائع يتأكد بلي التحويل وصل',done:'كمل ✅',no:'ترفض ❌'};
+const ST={new:'يستنى في قبول البائع',open:'يستنى في الموصّل',offer:'تفاوض على سومة التوصيل',topay:'يستنى في عربون التوصيل',review:'الموصّل يراجع في إثبات الدفع',paid:'العربون تأكد • يستنى في الموصّل يستلم',way:'في الطريق • يستنى في مسح كود المشتري',settle:'يستنى في التحويلات',confirm:'البائع يتأكد بلي التحويل وصل',done:'كمل ✅',no:'ترفض ❌'};
 const DREF=+((new URLSearchParams(location.search).get('ref')||'').replace(/^D/,''))||0;
 let sb=null,S={u:null,p:null,mk:[],mine:[],os:[],ds:[],tiers:[]},tab='home',mode='in',tmp={},adm=null;
 const feeOf=v=>{const t=S.tiers.find(t=>v>=t.min_p&&v<=t.max_p);return t?t.fee:0};
@@ -295,7 +301,7 @@ function authUI(){
 document.getElementById('landing').style.display='block';
 $('#app').innerHTML=`<main><div class="card" style="margin-top:30px"><h2 id="authbox" style="margin-top:0"><img src="logo.svg" alt="تسوق واربح" style="width:44px;height:44px;border-radius:12px;vertical-align:-12px;margin-left:10px"> تسوق واربح</h2>
 <input id="em" type="email" placeholder="الإيميل" autocomplete="email"><input id="pw" type="password" placeholder="كلمة السر (8 حروف على الأقل)" autocomplete="${mode=='in'?'current-password':'new-password'}">
-${mode=='up'?`<div class="roles">${Object.entries(ROLES).map(([k,v],i)=>`<label class="role"><input type="radio" name="r" value="${k}" ${i?'':'checked'}><span>${v[0]}</span>${v[1]}</label>`).join('')}</div><input id="n" placeholder="الاسم"><input id="ph" type="tel" placeholder="رقم الهاتف 05xxxxxxxx"><input id="ad" placeholder="البلدية / العنوان">`:''}
+${mode=='up'?`<div class="roles">${Object.entries(ROLES).map(([k,v],i)=>`<label class="role"><input type="radio" name="r" value="${k}" ${i?'':'checked'}><span>${v[0]}</span>${v[1]}</label>`).join('')}</div><input id="n" placeholder="الاسم"><input id="ph" type="tel" placeholder="رقم الهاتف 05xxxxxxxx"><input id="ad" placeholder="البلدية / العنوان">${wsel('w',16)}`:''}
 <button class="b" id="go" style="width:100%;margin:0" onclick="auth()">${mode=='in'?'دخول':'افتح حساب'}</button>${mode=='in'?'<p class="s" style="margin-top:12px;text-align:center"><a href="#" onclick="forgot();return false">نسيت كلمة السر؟</a></p>':''}
 <p class="s" style="margin-top:12px;text-align:center"><a href="#" onclick="mode=mode=='in'?'up':'in';authUI();return false">${mode=='in'?'ما عندكش حساب؟ سجّل':'عندي حساب؟ ادخل'}</a></p></div></main>`}
 async function auth(){
@@ -303,7 +309,7 @@ const em=gv('em'),pw=$('#pw').value,b=$('#go');
 if(!em||pw.length<8)return say('دخل إيميل صحيح وكلمة سر من 8 حروف على الأقل');
 let meta;
 if(mode=='up'){const n=gv('n'),p=gv('ph'),a=gv('ad'),r=document.querySelector('input[name=r]:checked').value;
-if(n.length<2||a.length<2)return say('دخل اسمك وعنوانك');if(!PHONE.test(p))return say('رقم الهاتف ماشي صحيح');meta={name:n,phone:p,addr:a,role:r}}
+if(n.length<2||a.length<2)return say('دخل اسمك وعنوانك');if(!PHONE.test(p))return say('رقم الهاتف ماشي صحيح');meta={name:n,phone:p,addr:a,role:r,wilaya:+$('#w').value}}
 b.disabled=true;
 const {data,error}=mode=='in'?await sb.auth.signInWithPassword({email:em,password:pw}):await sb.auth.signUp({email:em,password:pw,options:{data:meta,emailRedirectTo:location.origin+location.pathname}});
 b.disabled=false;
@@ -324,11 +330,11 @@ async function logout(){await sb.auth.signOut();S={...S,u:null,p:null,os:[],ds:[
 function render(){
 if(!S.u||!S.p)return authUI();
 document.getElementById('landing').style.display='none';
-tmp={};const R=S.p.role;
+tmp={};if(S.p.role=='driver')tmp.ship={...(S.p.ship_prices||{})};const R=S.p.role;
 $('#app').innerHTML=`<header><b>${ROLES[R][0]} ${e(S.p.name)}</b><span class="s" style="color:#fff">${ROLES[R][1]}</span></header>
 <main>${tab=='acc'?acc():tab=='adm'?'<div id="adm"></div>':`<div id="form">${formHTML()}</div><div id="list">${listHTML()}</div>`}</main>
 <nav><button class="${tab=='home'?'on':''}" onclick="tab='home';render()">🏠 الرئيسية</button><button class="${tab=='acc'?'on':''}" onclick="tab='acc';render()">👤 حسابي</button>${S.p.is_admin?`<button class="${tab=='adm'?'on':''}" onclick="tab='adm';render();admin()">👑 المالك</button>`:''}</nav>`;
-bindPh()}
+bindPh();if(tab=='acc'&&R=='driver')shList()}
 function refreshList(){const l=$('#list');if(l&&tab=='home')l.innerHTML=listHTML()}
 
 /* ---------- الحساب ---------- */
@@ -336,20 +342,24 @@ const chk=(id,l,v)=>`<div class="chk"><input type="checkbox" id="${id}" ${v?'che
 function acc(){const P=S.p,R=P.role;let v='';
 if(R=='seller')v=chk('v_buyer','نورّي رقمي للمشتري',P.vis_buyer)+chk('v_driver','نورّي رقمي للموصّل',P.vis_driver)+'<div class="tip">💡 الأحسن تورّي رقمك للزوج برك (المشتري والموصّل)، باش تعرف السلعة تاعك وين رايحة. ما يبان لحتى طرف آخر.</div>';
 if(R=='driver')v=chk('v_seller','نورّي رقمي للبائع',P.vis_seller)+chk('v_buyer','نورّي رقمي للمشتري',P.vis_buyer)+'<div class="tip">💡 الأحسن تورّي رقمك للبائع والمشتري برك، باش يتواصلو معاك وقت التوصيل.</div>';
+if(R=='driver')v+=`<h2>🚚 سومة التوصيل بين الولايات</h2><div class="card"><p class="s">حدد سومتك لكل ولاية توصّل ليها. كي يطلب مشتري من ولاية في القائمة، السومة تطلع وحدها بلا تفاوض.</p><div id="shp"></div><div style="display:flex;gap:8px;margin-top:8px"><select id="sh_w" style="margin:0">${wopts()}</select><input id="sh_p" type="number" min="1" placeholder="السومة (دج)" style="margin:0"></div><button class="b" onclick="shAdd()">زيد ➕</button></div>`;
 if(R=='buyer')v='<div class="tip">ℹ️ رقمك يبان للبائع والموصّل برك، خاطر لازم باش توصلك السلعة.</div>';
 return `<h2>👤 معلوماتي</h2><div class="card"><p class="s">${e(S.u.email)}</p>
-<label>الاسم</label><input id="an" value="${e(P.name)}"><label>الهاتف</label><input id="aph" type="tel" value="${e(P.phone)}"><label>البلدية / العنوان</label><input id="aad" value="${e(P.addr)}">
+<label>الاسم</label><input id="an" value="${e(P.name)}"><label>الهاتف</label><input id="aph" type="tel" value="${e(P.phone)}"><label>البلدية / العنوان</label><input id="aad" value="${e(P.addr)}">${wsel('aw',P.wilaya||16)}
 <label>الدور</label><select id="ar">${Object.entries(ROLES).map(([k,x])=>`<option value="${k}" ${k==R?'selected':''}>${x[1]}</option>`).join('')}</select>
 <label>CCP / BaridiMob (باش توصلك الدراهم)</label><input id="apay" value="${e(P.pay)}" placeholder="رقم الحساب أو RIP">${v}
 <button class="b" onclick="saveAcc()">حفظ 💾</button><button class="b w" onclick="logout()">خروج</button></div>`}
 async function saveAcc(){
 const n=gv('an'),p=gv('aph'),a=gv('aad');
 if(n.length<2||a.length<2||!PHONE.test(p))return say('فيريفي الاسم والهاتف والعنوان');
-const u={name:n,phone:p,addr:a,role:$('#ar').value,pay:gv('apay')};
+const u={name:n,phone:p,addr:a,role:$('#ar').value,pay:gv('apay'),wilaya:+$('#aw').value};if(S.p.role=='driver')u.ship_prices=tmp.ship||{};
 for(const [id,k] of [['v_buyer','vis_buyer'],['v_driver','vis_driver'],['v_seller','vis_seller']])if($('#'+id))u[k]=$('#'+id).checked;
 const {error}=await sb.from('profiles').update(u).eq('id',S.u.id);
 if(error)return say(e(error.message));
 await load();tab='home';render()}
+function shList(){const d=$('#shp');if(!d)return;const t=tmp.ship||{};d.innerHTML=Object.keys(t).length?Object.entries(t).map(([w,p])=>`<div class="top" style="align-items:center;margin-bottom:6px"><span><b>${w}</b> - ${wname(w)}</span><span><b>${m(p)}</b> <button class="b r" style="padding:5px 10px;margin:0" onclick="shDel('${w}')">✕</button></span></div>`).join(''):'<p class="s">ما حددت حتى ولاية بعد.</p>'}
+function shAdd(){const w=$('#sh_w').value,p=+$('#sh_p').value;if(!p)return say('دخل السومة');tmp.ship=tmp.ship||{};tmp.ship[w]=p;$('#sh_p').value='';shList()}
+function shDel(w){delete tmp.ship[w];shList()}
 
 /* ---------- أدوات العرض ---------- */
 const dtxt=d=>`<b>${m(d.com)}</b> للقطعة${d.tier_qty?` • من <b>${d.tier_qty}</b> قطعة مباعة فما فوق: <b>${m(d.tier_com)}</b> للقطعة`:''}`;
@@ -371,7 +381,7 @@ if(R=='seller')return `<h2>منتجاتي</h2>${S.mine.map(p=>`<div class="card"
 if(R=='promoter'){const my=S.ds.filter(d=>d.me=='promoter');
 return `<div class="card s">تختار منتج وتقترح على البائع العمولة تاعك (وتقدر تطلب عمولة أكبر كي تبيع كمية معينة). إذا تفاهمتو تدي الرابط الخاص تاعك.</div><h2>منتجات للترويج</h2>${S.mk.map(p=>{const d=my.find(d=>d.product_id==p.id);
 return `<div class="card"><b>${e(p.name)}</b> • ${m(p.final_price)}${gal(p,1)}${p.ref_com?`<span class="s">عمولة مرجعية: ${m(p.ref_com)}</span><br>`:''}${d&&d.status!='rej'?`${dtxt(d)}<br>${d.status=='agreed'?`✅ متفق عليه • تباعت ${d.sold} قطعة<br><button class="b" onclick="link(${d.id})">رابطي 🔗</button>`:dactions(d)}`:`${d?'<span class="s">❌ البائع رفض العرض تاعك</span><br>':''}<button class="b" onclick="dealNew(${p.id})">اقترح عمولتي 💬</button>`}</div>`}).join('')||'<div class="card s">ما كاين حتى منتج.</div>'}<h2>طلبات من روابطي</h2>${os.filter(o=>o.me=='promoter').map(o=>`<div class="card"><div class="top"><b>${e(o.product_name)} × ${o.qty}</b><span class="badge">${ST[o.status]}</span></div>عمولتك: <b>${m(o.promoter_com)}</b> ${o.status=='done'?'✅':''}${o.proofs.promoter?'<br><button class="b w" onclick="showProof('+o.id+',\'promoter\')">📸 إثبات تحويل عمولتك</button>':''}</div>`).join('')||'<div class="card s">ما كاين حتى طلب.</div>'}`}
-return `<div class="card s">تختار طلب، تشوف المسافة، تقترح سومة التوصيل وتتفاهم مع المشتري. ما تستلمش السلعة حتى يكمل الاتفاق ويأكد البائع العربون، وتمسح كود QR كي تستلم وكي تسلّم.</div><h2>طلبات التوصيل</h2>${os.filter(o=>o.me=='driver').map(ocard).join('')||'<div class="card s">ما كاين حتى طلب.</div>'}`}
+return `<div class="card s">تختار طلب وتأكد التوصيل: السومة محسوبة وحدها (حسب المسافة داخل ولايتك، ولا حسب الجدول تاعك بين الولايات). العربون يوصلك نتا مباشرة، وتمسح كود QR كي تستلم وكي تسلّم.</div><h2>طلبات التوصيل</h2>${os.filter(o=>o.me=='driver').map(ocard).join('')||'<div class="card s">ما كاين حتى طلب.</div>'}`}
 
 /* ---------- بطاقة الطلب ---------- */
 function ocard(o){
@@ -388,8 +398,8 @@ if(o.driver_name&&talk)x+=`🚚 ${e(o.driver_name)}: ${ph(o.driver_phone,o.drive
 if(o.km&&talk)x+=`📏 المسافة ≈ ${o.km} كم<br>`;
 dneg();
 if(agreed)x+=`🤝 التوصيل المتفق عليه: <b>${m(o.delivery_fee)}</b><br>`;
-if(st=='topay'){x+=`💳 حوّل عربون التوصيل <b>${m(o.delivery_fee)}</b> <b>للبائع</b> بـ BaridiMob/CCP${o.seller_pay?' على: <b>'+e(o.seller_pay)+'</b>':''}<br><span class="s">لازم تصوّر إثبات التحويل.</span><br>`;A('دفعت العربون 📸',`pay(${id})`)}
-if(st=='review')x+=`⏳ البائع يراجع في إثبات الدفع تاعك<br>${pr('deposit','إثبات الدفع تاعي')}<br>`;
+if(st=='topay'){x+=`💳 حوّل عربون التوصيل <b>${m(o.delivery_fee)}</b> <b>للموصّل</b> بـ BaridiMob/CCP${o.driver_pay?' على: <b>'+e(o.driver_pay)+'</b>':'<br><span class="s">⚠️ الموصّل ما حطش رقم الدفع تاعو — تواصل معاه</span>'}<br><span class="s">لازم تصوّر إثبات التحويل.</span><br>`;A('دفعت العربون 📸',`pay(${id})`)}
+if(st=='review')x+=`⏳ الموصّل يراجع في إثبات الدفع تاعك<br>${pr('deposit','إثبات الدفع تاعي')}<br>`;
 if(adv)x+=`💵 تخلص الموصّل كي تستلم: <b>${m(o.total)}</b><br>`;
 if(st=='paid')x+=`<div class="okb">✅ العربون تأكد. الموصّل يستلم السلعة تاعك من البائع.</div>`;
 if(st=='way')x+=`<div class="okb">🚚 السلعة تاعك في الطريق.</div>`+(o.delivery_code?qrBox(o,o.delivery_code,'ورّي هاد الكود للموصّل كي تستلم السلعة (وتخلصو). هو يمسحو باش يتأكد التسليم.'):'')}
@@ -397,31 +407,32 @@ if(me=='seller'){
 x+=`👤 ${e(o.buyer_name)} ${ph(o.buyer_phone)}<br>📍 ${e(o.buyer_addr)}<br>`;
 if(o.driver_name&&talk)x+=`🚚 ${e(o.driver_name)}: ${ph(o.driver_phone,o.driver_phone_hidden)}<br>`;
 x+=`المشتري يخلص ${m(o.total)} − الموقع ${m(o.platform_fee)}${o.promoter_com?' − مروّج '+m(o.promoter_com):''} = مستحقاتك: <b>${m(due)}</b><br>`;
-if(agreed)x+=`🚚 التوصيل المتفق عليه: ${m(o.delivery_fee)} — العربون يوصلك من المشتري ويخصمو الموصّل من تحويلو<br>`;
+if(agreed)x+=`🚚 سومة التوصيل: ${m(o.delivery_fee)}<br>`;
 if(st=='new'){A('قبول',`act('seller_accept',{p_order:${id}})`);A('رفض',`act('seller_reject',{p_order:${id}})`,'r')}
 if(['open','offer','topay','review'].includes(st))x+=`<div class="warn">⛔ ما تسلّمش السلعة حتى لموصّل قبل ما يتأكد العربون ويتمسح الكود.</div>`;
-if(st=='review'){x+=`💳 مرجع التحويل: ${e(o.deposit_ref||'—')}<br>${pr('deposit','إثبات الدفع')}<br>`;A('وصلني العربون ✅',`act('seller_confirm_deposit',{p_order:${id}})`);A('ما وصلش',`act('seller_reject_deposit',{p_order:${id}})`,'r')}
+if(st=='review')x+=`⏳ الموصّل يراجع إثبات دفع العربون<br>`;
 if(st=='paid')x+=`<div class="okb">✅ العربون تأكد. سلّم السلعة للموصّل غير كي يمسح هاد الكود.</div>`+(o.pickup_code?qrBox(o,o.pickup_code,'الموصّل يمسح هاد الـ QR ولا يكتب الكود. بلا كود ما تسلّمش.'):'');
-if(st=='confirm'){const net=Math.max(0,due-o.delivery_fee);x+=`المفروض يوصلك: <b>${m(net)}</b>${due-o.delivery_fee<0?'<br>⚠️ عربون التوصيل أكبر من مستحقاتك، خلص الموصّل '+m(o.delivery_fee-due):''}<br>${pr('seller','إثبات تحويل الموصّل')}<br>`;A('وصلتني مستحقاتي',`act('seller_confirm_settle',{p_order:${id}})`)}}
+if(st=='confirm'){x+=`المفروض يوصلك: <b>${m(due)}</b><br>${pr('seller','إثبات تحويل الموصّل')}<br>`;A('وصلتني مستحقاتي',`act('seller_confirm_settle',{p_order:${id}})`)}}
 if(me=='driver'){
 x+=`📦 <b>${e(o.product_name)} × ${o.qty}</b><br>🏪 ${e(o.seller_name||'البائع')} — 📍 ${e(o.seller_addr)}<br>🏠 الزبون — 📍 ${e(o.buyer_addr)}<br>`;
 if(o.km)x+=`📏 ≈ ${o.km} كم<br>`;
-if(o.open)A('اقترح سومة التوصيل',`dOff(${id})`);
+if(o.open)A('أكّد التوصيل ✅',`dConfirm(${id})`);
 dneg();
 if(talk){x+=`🏪 ${e(o.seller_name)}: ${ph(o.seller_phone,o.seller_phone_hidden)}<br>👤 ${e(o.buyer_name)}: ${ph(o.buyer_phone)}<br>`;
-x+=`<div class="s" style="background:var(--bg);border-radius:12px;padding:8px 12px;margin:6px 0">📋 <b>ملخص الاتفاق</b><br>• تقبض من المشتري: <b>${m(o.total)}</b><br>${o.delivery_fee?'• سومتك المتفق عليها: <b>'+m(o.delivery_fee)+'</b> (العربون عند البائع)<br>':''}• العربون: ${adv?'✅ مؤكد من البائع':st=='review'?'⏳ البائع يراجع فيه':st=='topay'?'⏳ المشتري ما دفعوش مازال':'—'}</div>`}
+x+=`<div class="s" style="background:var(--bg);border-radius:12px;padding:8px 12px;margin:6px 0">📋 <b>ملخص الاتفاق</b><br>• تقبض من المشتري: <b>${m(o.total)}</b><br>${o.delivery_fee?'• سومة التوصيل: <b>'+m(o.delivery_fee)+'</b> (العربون عندك)<br>':''}• العربون: ${adv?'✅ أكدتو':st=='review'?'⏳ راجع إثبات الدفع':st=='topay'?'⏳ المشتري ما دفعوش مازال':'—'}</div>`}
 if(['open','offer'].includes(st))x+=`<div class="warn">⛔ ما تتحركش: الاتفاق على التوصيل ما كملش.</div>`;
-if(['topay','review'].includes(st))x+=`<div class="warn">⛔ ما تستلمش السلعة: البائع ما أكدش العربون مازال.</div>`;
+if(['topay','review'].includes(st))x+=`<div class="warn">⛔ ما تستلمش السلعة: ما أكدتش العربون مازال.</div>`;
+if(st=='review'){x+=`💳 المشتري حوّل العربون <b>${m(o.delivery_fee)}</b> — راجع إثبات الدفع:<br>مرجع التحويل: ${e(o.deposit_ref||'—')}<br>${pr('deposit','إثبات الدفع')}<br>`;A('وصلني العربون ✅',`act('driver_confirm_deposit',{p_order:${id}})`);A('ما وصلش',`act('driver_reject_deposit',{p_order:${id}})`,'r')}
 if(st=='paid'){x+=`<div class="okb">✅ الاتفاق كامل. روح للبائع وامسح الكود تاعو باش تستلم السلعة.</div>`;A('📷 مسح كود البائع (استلام)',`scan('📷 استلام السلعة من البائع','scan_pickup',${id})`)}
 if(st=='way'){x+=`<div class="okb">✅ روح للمشتري، اقبض <b>${m(o.total)}</b> وامسح الكود تاعو باش تأكد التسليم.</div>`;A('📷 مسح كود المشتري (تسليم)',`scan('📷 تأكيد التسليم للمشتري','scan_delivery',${id})`)}
-if(st=='settle'){const net=due-o.delivery_fee;x+=`💸 حوّل بعد ما تقبض (تحتفظ بسومة التوصيل ${m(o.delivery_fee)} خاطر العربون عند البائع):<br>• للبائع: <b>${m(Math.max(0,net))}</b>${o.seller_pay?' ('+e(o.seller_pay)+')':''}${net<0?' — والبائع يخلصك '+m(-net):''}<br>${o.promoter_com?'• للمروّج: <b>'+m(o.promoter_com)+'</b><br>':''}• للموقع: <b>${m(o.platform_fee)}</b> (${e(PLAT_PAY)})<br><span class="s">لازم تصوّر إثبات كل تحويل.</span><br>`;A('حوّلت الدراهم 📸',`settle(${id})`)}}
+if(st=='settle'){x+=`💸 حوّل (العربون ${m(o.delivery_fee)} عندك من قبل):<br>• للبائع: <b>${m(due)}</b>${o.seller_pay?' ('+e(o.seller_pay)+')':''}<br>${o.promoter_com?'• للمروّج: <b>'+m(o.promoter_com)+'</b><br>':''}• للموقع: <b>${m(o.platform_fee)}</b> (${e(PLAT_PAY)})<br><span class="s">لازم تصوّر إثبات كل تحويل.</span><br>`;A('حوّلت الدراهم 📸',`settle(${id})`)}}
 return `<div class="card"><div class="top"><b>#${id} ${e(o.product_name)} × ${o.qty}</b><span class="badge">${ST[st]}</span></div><span class="s">المنتج: ${m(o.total)}</span><br>${x}${b}</div>`}
 
 /* ---------- الإجراءات ---------- */
 function buy(id){
 const p=S.mk.find(p=>p.id==id);if(!p)return;
-box('شراء '+e(p.name),`<p class="s">السعر ${m(p.final_price)} • المخزون ${p.stock}<br>سومة التوصيل تتفق عليها مع الموصّل حسب المسافة.</p>${p.min_qty>1?`<p class="s">⚠️ البائع طالب على الأقل ${p.min_qty} قطع.</p>`:''}<label>الكمية</label><input id="d_q" type="number" min="${p.min_qty}" value="${p.min_qty}"><label>عنوان التسليم</label><input id="d_a" value="${e(S.p.addr)}">`,async()=>{
-const r=await call('create_order',{p_product:id,p_qty:+gv('d_q'),p_addr:gv('d_a'),p_deal:DREF||null});if(!r.ok)return r.msg})}
+box('شراء '+e(p.name),`<p class="s">السعر ${m(p.final_price)} • المخزون ${p.stock}<br>سومة التوصيل ثابتة حسب المسافة (داخل ولايتك).</p>${p.min_qty>1?`<p class="s">⚠️ البائع طالب على الأقل ${p.min_qty} قطع.</p>`:''}<label>الكمية</label><input id="d_q" type="number" min="${p.min_qty}" value="${p.min_qty}"><label>عنوان التسليم</label><input id="d_a" value="${e(S.p.addr)}">${wsel('d_w',S.p.wilaya||16)}`,async()=>{
+const r=await call('create_order',{p_product:id,p_qty:+gv('d_q'),p_addr:gv('d_a'),p_wilaya:+$('#d_w').value,p_deal:DREF||null});if(!r.ok)return r.msg})}
 function prev(){const v=+$('#pp').value,f=feeOf(v);
 $('#pv').innerHTML=v<1?'اكتب السعر':`السومة تاعك <b>${m(v)}</b><br>+ ربح الموقع <b>${m(f)}</b><br>= تبان للمشتري <b style="color:var(--g)">${m(v+f)}</b>`}
 async function addP(){
@@ -444,20 +455,27 @@ function dealNew(pid){const p=S.mk.find(p=>p.id==pid);
 box('اقترح عمولتك',`<p class="s">${e(p.name)} • ${m(p.final_price)}</p>`+dform(null),async()=>{const r=await call('deal_propose',{p_product:pid,...dargs()});if(!r.ok)return r.msg})}
 function dlCnt(id){const d=S.ds.find(d=>d.id==id);box('عرض مضاد',dform(d),async()=>{const r=await call('deal_counter',{p_deal:id,...dargs()});if(!r.ok)return r.msg})}
 function link(id){const u=location.origin+location.pathname+'?ref=D'+id;box('رابطك الخاص',`<p class="s">انسخ الرابط وشاركو. كل طلب منو يتسجل عليك.</p><input value="${e(u)}" readonly onclick="this.select()">`,null,'مليح',false)}
-function dOff(id){const o=S.os.find(o=>o.id==id);
-const d=box('اقترح سومة التوصيل',`<p class="s">🏪 ${e(o.seller_addr)} ← 🏠 ${e(o.buyer_addr)}<br>السومة المرجعية: ${KM} دج/كم (أقل حاجة ${MINF} دج)</p><label>المسافة تقريبا (كم)</label><input id="d_km" type="number" min="0" step="0.5"><label>سومة التوصيل (دج)</label><input id="d_f" type="number" min="0">`,async()=>{
-const km=+gv('d_km'),f=+gv('d_f');if(!km||!f)return 'دخل المسافة والسومة';
-const r=await call('driver_offer',{p_order:id,p_km:km,p_fee:f});if(!r.ok)return r.msg});
-$('#d_km').oninput=()=>{$('#d_f').value=Math.max(MINF,Math.round($('#d_km').value*KM/10)*10)}}
+function dConfirm(id){const o=S.os.find(o=>o.id==id);
+const bw=+o.buyer_wilaya||0,sw=+o.seller_wilaya||0,same=bw&&sw&&bw===sw;
+const wp=(!same&&bw&&sw)?((S.p.ship_prices||{})[bw]||0):0;
+let body=`<p class="s">📍 التوصيل إلى ولاية <b>${wname(bw)}</b>${same?' (نفس ولايتك)':''}</p>`;
+if(same)body+=`<p class="s">السومة ثابتة حسب المسافة: حتى 5كم 250دج • 5-15كم 400دج • 15-30كم 600دج • فوق 30كم 800دج</p><label>المسافة التقريبية (كم)</label><input id="d_km" type="number" min="0" step="0.5"><div id="d_fee" class="okb" style="display:none"></div>`;
+else if(wp)body+=`<div class="okb">🚚 سومتك لهذي الولاية: <b>${m(wp)}</b></div>`;
+else body+=`<div class="warn">⚠️ ${bw&&sw?`ما حددتش سومة لولاية ${wname(bw)} — حددها في بروفايلك، ولا `:''}اقترح سومة دروك:</div><label>سومة التوصيل المقترحة (دج)</label><input id="d_f" type="number" min="0">`;
+const d=box('تأكيد التوصيل',body,async()=>{
+if(same){const km=+gv('d_km');if(!km)return 'دخل المسافة';const r=await call('driver_confirm',{p_order:id,p_km:km,p_fee:shipLocal(km)});if(!r.ok)return r.msg}
+else if(wp){const r=await call('driver_confirm',{p_order:id,p_km:0,p_fee:wp});if(!r.ok)return r.msg}
+else{const f=+gv('d_f');if(!f)return 'دخل السومة';const r=await call('driver_offer',{p_order:id,p_km:0,p_fee:f});if(!r.ok)return r.msg}});
+if(same){const k=$('#d_km');k.oninput=()=>{const v=+k.value,el=$('#d_fee');if(v>0){el.style.display='block';el.innerHTML=`السومة: <b>${m(shipLocal(v))}</b>`}else el.style.display='none'}}}
 function dCnt(id){const o=S.os.find(o=>o.id==id);
 box('عرض مضاد',`<p class="s">آخر عرض: ${m(o.delivery_fee)}</p><label>سعرك (دج)</label><input id="d_f" type="number" min="0">`,async()=>{
 const f=+gv('d_f');if(!f)return 'دخل السومة';const r=await call('neg_counter',{p_order:id,p_fee:f});if(!r.ok)return r.msg})}
 function pay(id){tmp={};box('عربون التوصيل',pf('proof','📸 صورة إثبات الدفع (لازمة)')+`<label>مرجع التحويل (اختياري)</label><input id="d_r">`,async()=>{
 if(!tmp.proof)return 'صوّر إثبات الدفع الأول';const r=await call('buyer_pay',{p_order:id,p_ref:gv('d_r'),p_proof:tmp.proof});if(!r.ok)return r.msg})}
-function settle(id){const o=S.os.find(o=>o.id==id),net=o.total-o.promoter_com-o.platform_fee-o.delivery_fee;tmp={};
-let f='';if(net>0)f+=pf('sp','📸 إثبات تحويل البائع');if(o.promoter_com>0)f+=pf('pp','📸 إثبات تحويل المروّج');f+=pf('fp','📸 إثبات تحويل ربح الموقع');
+function settle(id){const o=S.os.find(o=>o.id==id);tmp={};
+let f=pf('sp','📸 إثبات تحويل البائع');if(o.promoter_com>0)f+=pf('pp','📸 إثبات تحويل المروّج');f+=pf('fp','📸 إثبات تحويل ربح الموقع');
 box('تأكيد التحويلات',f+`<label>ملاحظة (اختياري)</label><input id="d_r">`,async()=>{
-if(net>0&&!tmp.sp)return 'صوّر إثبات تحويل البائع';if(o.promoter_com>0&&!tmp.pp)return 'صوّر إثبات تحويل المروّج';if(!tmp.fp)return 'صوّر إثبات تحويل ربح الموقع';
+if(!tmp.sp)return 'صوّر إثبات تحويل البائع';if(o.promoter_com>0&&!tmp.pp)return 'صوّر إثبات تحويل المروّج';if(!tmp.fp)return 'صوّر إثبات تحويل ربح الموقع';
 const r=await call('driver_settle',{p_order:id,p_note:gv('d_r'),p_seller:tmp.sp||null,p_promoter:tmp.pp||null,p_platform:tmp.fp});if(!r.ok)return r.msg})}
 
 /* ---------- لوحة المالك ---------- */
