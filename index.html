@@ -265,7 +265,7 @@ function comp(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.
 const pf=(k,l,max=1)=>`<label>${l}</label><input type="file" accept="image/*" ${max>1?'multiple':''} data-k="${k}" data-max="${max}"><div id="pv_${k}" class="gal"></div>`;
 function bindPh(){document.querySelectorAll('input[data-k]').forEach(i=>{i.onchange=async()=>{const k=i.dataset.k,max=+i.dataset.max,fs=[...i.files].slice(0,max);if(!fs.length)return;
 try{const r=await Promise.all(fs.map(comp));tmp[k]=max>1?r:r[0];const pv=document.getElementById('pv_'+k);if(pv)pv.innerHTML=r.map(x=>`<img src="${x}">`).join('')}catch(x){say('الصورة ماشي صالحة')}}})}
-const gal=(p,n=3)=>p.imgs&&p.imgs.length?`<div class="gal">${p.imgs.slice(0,n).map(s=>`<img src="${IMG(s)}" onclick="bigU('${IMG(s)}')">`).join('')}</div>`:'';
+const gal=(p,n=5)=>p.imgs&&p.imgs.length?`<div class="gal">${p.imgs.slice(0,n).map(s=>`<img src="${IMG(s)}" onclick="bigU('${IMG(s)}')">`).join('')}</div>`:'';
 async function showProof(id,k){const {data,error}=await sb.rpc('get_proof',{p_order:id,p_kind:k});if(error)return say(e(error.message));if(!data)return say('ما كاين حتى صورة');box('',`<img src="${data}" style="width:100%;border-radius:12px">`,null,'إغلاق',false)}
 
 /* ---------- QR ---------- */
@@ -371,7 +371,7 @@ return `<button class="b" onclick="act('deal_accept',{p_deal:${d.id}})">قبول
 /* ---------- الصفحة الرئيسية ---------- */
 function formHTML(){
 if(S.p.role!='seller')return '';
-return `<h2>➕ منتج جديد</h2><div class="card"><p class="s">ℹ️ اكتب السومة الصافية (اللي تحب تديها). الموقع يزيد الربح تاعو فوقها والمشتري هو اللي يخلصها. سومة التوصيل يتفاهمو عليها المشتري والموصّل.</p><input id="pn" placeholder="اسم المنتج"><input id="pp" type="number" min="1" placeholder="السومة الصافية (دج)" oninput="prev()"><div id="pv" class="card s" style="background:var(--bg);box-shadow:none">اكتب السعر باش يظهر لك السعر النهائي للمشتري.</div><input id="ps" type="number" placeholder="المخزون"><input id="pm" type="number" min="1" placeholder="أقل كمية للطلب (الافتراضي 1)"><input id="pc" type="number" placeholder="عمولة مرجعية للمروّج لكل قطعة (اختياري)">${pf('imgs','📷 تصاور المنتج (حتى 3، الأحسن 3 من زوايا مختلفة)',3)}<button class="b" id="addb" onclick="addP()">نشر 🚀</button></div>`}
+return `<h2>➕ منتج جديد</h2><div class="card"><p class="s">ℹ️ اكتب السومة الصافية (اللي تحب تديها). الموقع يزيد الربح تاعو فوقها والمشتري هو اللي يخلصها. سومة التوصيل يتفاهمو عليها المشتري والموصّل.</p><input id="pn" placeholder="اسم المنتج"><input id="pp" type="number" min="1" placeholder="السومة الصافية (دج)" oninput="prev()"><div id="pv" class="card s" style="background:var(--bg);box-shadow:none">اكتب السعر باش يظهر لك السعر النهائي للمشتري.</div><input id="ps" type="number" placeholder="المخزون"><input id="pm" type="number" min="1" placeholder="أقل كمية للطلب (الافتراضي 1)"><input id="pc" type="number" placeholder="عمولة مرجعية للمروّج لكل قطعة (اختياري)">${pf('imgs','📷 تصاور المنتج (حتى 5، الأحسن من زوايا مختلفة)',5)}<button class="b" id="addb" onclick="addP()">نشر 🚀</button></div>`}
 function listHTML(){
 const R=S.p.role,os=S.os;
 if(R=='buyer')return `${DREF?'<div class="card s">🔗 دخلت عبر رابط مروّج</div>':''}<h2>المنتجات</h2>${S.mk.map(p=>`<div class="card"><div class="top"><b>${e(p.name)}</b><span class="badge">المخزون ${p.stock}</span></div>${gal(p)}<div class="s">البائع: ${e(p.seller_name)} • 📍 ${e(p.seller_addr)}</div><b>${m(p.final_price)}</b>${p.min_qty>1?` <span class="badge">أقل كمية: ${p.min_qty}</span>`:''}<br>${p.seller_id==S.u.id?'<span class="s">منتجك</span>':`<button class="b" onclick="buy(${p.id})">شراء 🛒</button>`}</div>`).join('')||'<div class="card s">ما كاين حتى منتج بعد.</div>'}<h2>طلباتي</h2>${os.filter(o=>o.me=='buyer').map(ocard).join('')||'<div class="card s">ما عندك حتى طلب.</div>'}`;
@@ -439,7 +439,7 @@ async function addP(){
 const n=gv('pn'),pr=+gv('pp'),s=+gv('ps'),c=+(gv('pc')||0),mq=Math.max(1,Math.floor(+(gv('pm')||1)));
 if(n.length<2||!pr||!s)return say('كمل الاسم والسومة والمخزون');
 if(mq>s)return say('أقل كمية ما تقدرش تفوت المخزون');
-if(!tmp.imgs||!tmp.imgs.length)return say('حط صورة وحدة على الأقل (الأحسن 3 تصاور)');
+if(!tmp.imgs||!tmp.imgs.length)return say('حط صورة وحدة على الأقل (تقدر حتى 5 تصاور)');
 const b=$('#addb');b.disabled=true;b.textContent='يتنشر…';
 try{const paths=[];
 for(const [i,u] of tmp.imgs.entries()){const blob=await (await fetch(u)).blob(),path=`${S.u.id}/${Date.now()}_${i}.jpg`;
